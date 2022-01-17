@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {isLoggedInVar} from "../apollo"
+// import {isLoggedInVar} from "../apollo"
 
 export const LoginOutRouter = () => {
   const [email, setEmail] = useState('')
