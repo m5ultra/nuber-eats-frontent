@@ -1,27 +1,27 @@
-import React, { useState } from 'react'
-// import {isLoggedInVar} from "../apollo"
+import React from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+
+interface IFormInput {
+  email: string
+  password: string
+}
 
 export const LoginOutRouter = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const onChange = (e: { target: { name: string; value: string } }) => {
-    const {
-      target: { name, value },
-    } = e
-    if (name === 'email') {
-      setEmail(value)
-    }
-    if (name === 'password') {
-      setPassword(password)
-    }
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>()
+  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data)
+
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h1>Logged Out</h1>
-      <form action="">
-        <input type="email" name={'email'} onChange={onChange} required placeholder={'email'} value={email} />
-        <input type="email" name={'password'} onChange={onChange} required placeholder={'email'} value={password} />
-      </form>
-    </div>
+      <input {...register('email', { required: true })} />
+      {errors.email?.type === 'required' && '邮箱地址必填'}
+      <input type={'password'} {...register('password', { required: true, minLength: 6, maxLength: 30 })} />
+      {errors.password?.type === 'required' && '密码不能为空'}
+      <input className={'bg-yellow-300 text-white'} type="submit" />
+    </form>
   )
 }
