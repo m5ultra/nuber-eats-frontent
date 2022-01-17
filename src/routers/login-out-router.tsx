@@ -12,7 +12,6 @@ export const LoginOutRouter = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>()
-  console.log(errors, '9999')
   const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data)
   const onInvalid = () => {
     console.log('cant create account')
